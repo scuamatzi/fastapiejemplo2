@@ -16,16 +16,18 @@ datos={
 async def inicio():
     #sin_codificar=json.dumps(datos)
     #return json.loads(sin_codificar)
+    #print(len(datos))
     return json.loads(json.dumps(datos))
 
 @app.post("/add")
 async def add(request: Request):
-    nuevos_datos={}
+    #nuevos_datos={}
     formdata=await request.form()
-    i=1
+    #i=1
 
-    for id in datos:
-        nuevos_datos[str(id)]=datos[id]
-        i+=1
+    #for id in datos:
+    #    nuevos_datos[str(id)]=datos[id]
+    #    i+=1
     
-    datos[i]=formdata["nuevolenguaje"]
+    #datos[i]=formdata["nuevolenguaje"]
+    datos[len(datos)]=formdata["nuevolenguaje"]
