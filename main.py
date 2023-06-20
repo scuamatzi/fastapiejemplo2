@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Request
 import json
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 
 app=FastAPI()
+templates=Jinja2Templates(directory="templates")
 
 datos={
     "1":"Python",
@@ -13,11 +16,13 @@ datos={
 }
 
 @app.get("/")
-async def inicio():
+async def inicio(request: Request):
     #sin_codificar=json.dumps(datos)
     #return json.loads(sin_codificar)
     #print(len(datos))
-    return json.loads(json.dumps(datos))
+    #return json.loads(json.dumps(datos))
+    result=json.loads(json.dumps(datos))
+    return templates.TemplateResponse("inicio.html",{"request":request, "listado":result})
 
 @app.post("/add")
 async def add(request: Request):
@@ -30,4 +35,7 @@ async def add(request: Request):
     #    i+=1
     
     #datos[i]=formdata["nuevolenguaje"]
-    datos[len(datos)]=formdata["nuevolenguaje"]
+    #print(datos["1"])
+    #print(len(datos))
+    datos[str(len(datos)+1)]=formdata["nuevolenguaje"]
+    return RedirectResponse("/",status_code=303)
