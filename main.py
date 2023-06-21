@@ -36,6 +36,11 @@ async def add(request: Request):
     
     #datos[i]=formdata["nuevolenguaje"]
     #print(datos["1"])
-    #print(len(datos))
+    print(len(datos))
     datos[str(len(datos)+1)]=formdata["nuevolenguaje"]
     return RedirectResponse("/",status_code=303)
+
+@app.get("/delete/{id}")
+async def delete(request: Request, id:str):
+    del datos[str(id)]
+    return RedirectResponse("/", status_code=303)
