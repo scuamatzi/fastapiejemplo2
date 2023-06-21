@@ -36,8 +36,13 @@ async def add(request: Request):
     
     #datos[i]=formdata["nuevolenguaje"]
     #print(datos["1"])
-    print(len(datos))
-    datos[str(len(datos)+1)]=formdata["nuevolenguaje"]
+    #print(len(datos))
+    indexes=datos.keys()
+    indexes_as_integers=[int(x) for x in indexes]
+    new_index=max(indexes_as_integers)+1
+    print(new_index)
+    #datos[str(len(datos)+1)]=formdata["nuevolenguaje"]
+    datos[str(new_index)]=formdata["nuevolenguaje"]
     return RedirectResponse("/",status_code=303)
 
 @app.get("/delete/{id}")
