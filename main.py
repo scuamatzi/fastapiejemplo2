@@ -18,7 +18,8 @@ datos={
 @app.get("/")
 async def inicio(request: Request):
     result=json.loads(json.dumps(datos))
-    return templates.TemplateResponse("inicio.html",{"request":request, "listado":result})
+    #return templates.TemplateResponse("inicio.html",{"request":request, "listado":result})
+    return result
 
 @app.post("/add")
 async def add(request: Request):
